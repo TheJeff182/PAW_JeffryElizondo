@@ -1,0 +1,30 @@
+C:\Users\varit\source\repos\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.deps.json
+C:\Users\varit\source\repos\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.dll
+C:\Users\varit\source\repos\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.pdb
+C:\Users\varit\source\repos\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Models.dll
+C:\Users\varit\source\repos\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Models.pdb
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.csproj.AssemblyReference.cache
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.AssemblyInfoInputs.cache
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.AssemblyInfo.cs
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.csproj.CoreCompileInputs.cache
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Arch.98323766.Up2Date
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.dll
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\refint\PAW.Architecture.dll
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.pdb
+C:\Users\varit\source\repos\PAW\PAW.Architecture\obj\Debug\net8.0\ref\PAW.Architecture.dll
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.deps.json
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.dll
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Architecture.pdb
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Models.dll
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\bin\Debug\net8.0\PAW.Models.pdb
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.csproj.AssemblyReference.cache
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.AssemblyInfoInputs.cache
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.AssemblyInfo.cs
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.csproj.CoreCompileInputs.cache
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Arch.98323766.Up2Date
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.dll
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\refint\PAW.Architecture.dll
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\PAW.Architecture.pdb
+C:\Users\pollo\Documents\01. Universidad\02. Progra Avanzada en Web\PAW\PAW.Architecture\obj\Debug\net8.0\ref\PAW.Architecture.dll

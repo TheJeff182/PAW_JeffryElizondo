@@ -7,11 +7,6 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>User Roles</h2>
-
-        <a asp-action="Create" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i>
-            Add User Role
-        </a>
     </div>
 
     <div class="card shadow-sm">
@@ -54,21 +49,15 @@
 
                                         <div class="btn-group" role="group">
 
-                                            <!-- Edit -->
-                                            <a asp-action="Edit"
-                                               asp-route-id="@userRole.Id"
-                                               class="btn btn-sm btn-warning">
-                                                <i class="bi bi-pencil"></i>
-                                                Edit
-                                            </a>
-
-                                            <!-- Delete -->
-                                            <a asp-action="Delete"
-                                               asp-route-id="@userRole.Id"
-                                               class="btn btn-sm btn-danger">
-                                                <i class="bi bi-trash"></i>
-                                                Delete
-                                            </a>
+                                            <!-- Details -->
+                                            <button type="button"
+                                                    class="btn btn-sm btn-info"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#detailsModal"
+                                                    data-details-url="@Url.Action("Details", new { id = userRole.UserRoleId })">
+                                                <i class="bi bi-eye"></i>
+                                                View
+                                            </button>
 
                                         </div>
 
@@ -96,3 +85,36 @@
     </div>
 
 </div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">User Role Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="detailsContent">
+                <!-- Details will load here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Script -->
+<script>
+    document.getElementById('detailsModal').addEventListener('show.bs.modal', function (e) {
+        const button = e.relatedTarget;
+        const url = button.getAttribute('data-details-url');
+        const content = document.getElementById('detailsContent');
+
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                content.innerHTML = html;
+            })
+            .catch(error => {
+                content.innerHTML = '<p class="text-danger">Error loading details.</p>';
+            });
+    });
+</script>

@@ -20,21 +20,56 @@ namespace PAW.API.Controllers
         public async Task<ActionResult<UserDTO>> GetById(int id)
         {
             var user = await userRepository.FindAsync(id);
-            return UserDTO.ConvertFrom(user);
+            if (user == null)
+                return NotFound($"User with id {id} not found");
+
+            return Ok(UserDTO.ConvertFrom(user));
         }
 
         [HttpPost]
-        public async Task<bool> Save([FromBody] IEnumerable<User> Users)
+        public async Task<bool> Save([FromBody] UserDTO userDTO)
         {
-            foreach (var u in Users)
+            try
             {
-                if (u.UserId > 0)
-                    await userRepository.CreateAsync(u);
-                else 
-                    await userRepository.UpdateAsync(u);
-            }
+                var user = UserDTO.ConvertTo(userDTO);
 
-            return true;
+                if (userDTO.UserId > 0)
+                {
+                    // Update
+                    await userRepository.UpdateAsync(user);
+                }
+                else
+                {
+                    // Create
+                    await userRepository.CreateAsync(user);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error saving user");
+                return false;
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var user = await userRepository.FindAsync(id);
+                if (user == null)
+                    return false;
+
+                await userRepository.DeleteAsync(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting user with id {id}", id);
+                return false;
+            }
         }
     }
 }

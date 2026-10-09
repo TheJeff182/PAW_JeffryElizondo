@@ -1,0 +1,42 @@
+@model PAW.Models.DTO.ProductDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Product Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Product ID:</strong> @Model.ProductId</p>
+            <p><strong>Product Name:</strong> @Model.Name</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+        </div>
+        <div class="col-md-6">
+
+            <p><strong>Created By:</strong> @Model.CreatedBy</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Created Date:</strong> @(Model.CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "N/A")</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Modified Date:</strong> @(Model.ModifiedDate?.ToString("yyyy-MM-dd HH:mm") ?? "N/A")</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p><strong>Comments:</strong></p>
+            <p class="text-muted">@Model.Comments</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <a href="@Url.Action("Edit", new { id = Model.ProductId })" class="btn btn-warning">Edit</a>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

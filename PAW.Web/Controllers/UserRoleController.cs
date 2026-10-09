@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using PAW.Models.DTO;
 using PAW.Web.Models;
 using PAW.Web.Services;
 
@@ -20,6 +21,15 @@ namespace PAW.Web.Controllers
         {
             var result = await _userRoleService.GetUserRolesAsync();
             return View(result);
+        }
+
+        public async System.Threading.Tasks.Task<IActionResult> Details(decimal id)
+        {
+            var userRole = await _userRoleService.GetUserRoleByIdAsync(id);
+            if (userRole == null)
+                return NotFound();
+
+            return PartialView("_DetailsPartial", userRole);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

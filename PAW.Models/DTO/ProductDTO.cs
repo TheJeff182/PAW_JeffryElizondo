@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace PAW.Models.DTO;
 
@@ -6,24 +7,34 @@ public class ProductDTO
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
+
     [JsonPropertyName("productId")]
     public int ProductId { get; set; }
+
     [JsonPropertyName("name")]
+    [Required(ErrorMessage = "The Name field is required.")]
     public string Name { get; set; }
+
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
+
     [JsonPropertyName("rating")]
     public int Rating { get; set; }
+
     [JsonPropertyName("modifiedBy")]
     public string? ModifiedBy { get; set; }
+
     [JsonPropertyName("createdBy")]
     public string? CreatedBy { get; set; }
+
     [JsonPropertyName("comments")]
-    public string Comments { get; set; }
+    public string? Comments { get; set; } = string.Empty;
+
     [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
+
     [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 
     public static ProductDTO ConvertFrom(Product product)
     {

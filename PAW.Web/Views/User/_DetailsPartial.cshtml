@@ -1,0 +1,62 @@
+@model PAW.Models.DTO.UserDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">User Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>User ID:</strong>
+            <p>@Model.UserId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Username:</strong>
+            <p>@Model.Username</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Email:</strong>
+            <p>@Model.Email</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Is Active:</strong>
+            <p>
+                @if (Model.IsActive.HasValue)
+                {
+                    <span class="badge @(Model.IsActive.Value ? "bg-success" : "bg-danger")">
+                        @(Model.IsActive.Value ? "Active" : "Inactive")
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">N/A</span>
+                }
+            </p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Role ID:</strong>
+            <p>@Model.RoleId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Created At:</strong>
+            <p>@Model.CreatedAt?.ToString("g")</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Last Modified:</strong>
+            <p>@Model.LastModified?.ToString("g")</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Modified By:</strong>
+            <p>@Model.ModifiedBy</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace PAW.Models.DTO;
 
@@ -6,22 +7,22 @@ public class CategoryDTO
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
+
     [JsonPropertyName("categoryId")]
     public int CategoryId { get; set; }
+
     [JsonPropertyName("name")]
+    [Required(ErrorMessage = "The Name field is required.")]
     public string Name { get; set; }
+
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
+
     [JsonPropertyName("modifiedBy")]
     public string? ModifiedBy { get; set; }
-    [JsonPropertyName("createdBy")]
-    public string? CreatedBy { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
+
     [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 
     public static CategoryDTO ConvertFrom(Category category)
     {
@@ -29,13 +30,10 @@ public class CategoryDTO
         {
             Id = Guid.NewGuid(),
             CategoryId = category.CategoryId,
-            Name = category.CategoryName!,
-            Description = category.Description!,
+            Name = category.CategoryName ?? string.Empty,
+            Description = category.Description,
             ModifiedBy = category.ModifiedBy,
-            CreatedBy = string.Empty,
-            Comments = string.Empty,
-            CreatedDate = category.LastModified ?? DateTime.Now,
-            ModifiedDate = category.LastModified ?? DateTime.Now
+            ModifiedDate = category.LastModified
         };
     }
 
@@ -51,3 +49,4 @@ public class CategoryDTO
         };
     }
 }
+

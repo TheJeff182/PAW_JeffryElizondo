@@ -11,17 +11,11 @@ public class NotificationDTO
     [JsonPropertyName("userId")]
     public int UserId { get; set; }
     [JsonPropertyName("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = null!;
     [JsonPropertyName("isRead")]
     public bool? IsRead { get; set; }
     [JsonPropertyName("createdAt")]
     public DateTime? CreatedAt { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static NotificationDTO ConvertFrom(Notification notification)
     {
@@ -32,10 +26,7 @@ public class NotificationDTO
             UserId = notification.UserId,
             Message = notification.Message,
             IsRead = notification.IsRead,
-            CreatedAt = notification.CreatedAt,
-            Comments = string.Empty,
-            CreatedDate = notification.CreatedAt ?? DateTime.Now,
-            ModifiedDate = notification.CreatedAt ?? DateTime.Now
+            CreatedAt = notification.CreatedAt
         };
     }
 

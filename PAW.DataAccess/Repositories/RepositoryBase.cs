@@ -106,7 +106,11 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         }
         catch (Exception ex)
         {
-            throw new PAWException(ex);
+            // Build detailed error message
+            string errorMessage = $"CreateAsync failed: {ex.Message}";
+            if (ex.InnerException != null)
+                errorMessage += $" | Inner: {ex.InnerException.Message}";
+            throw new PAWException(errorMessage);
         }
     }
 

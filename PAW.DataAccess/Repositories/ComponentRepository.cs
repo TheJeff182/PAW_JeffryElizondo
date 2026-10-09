@@ -9,12 +9,16 @@ public interface IComponentRepository : IRepositoryBase<Component>
     Task<bool> CreateAsync(Component entity);
     Task<bool> DeleteAsync(Component entity);
     Task<IEnumerable<Component>> ReadAsync();
-    Task<Component> FindAsync(int id);
     Task<bool> UpdateAsync(Component entity);
     Task<bool> UpdateManyAsync(IEnumerable<Component> entities);
     Task<bool> ExistsAsync(Component entity);
+    Task<Component?> FindByDecimalIdAsync(decimal id);
 }
 
 public class ComponentRepository : RepositoryBase<Component>, IComponentRepository
 {
+    public async Task<Component?> FindByDecimalIdAsync(decimal id)
+    {
+        return await DbContext.Set<Component>().FindAsync(id);
+    }
 }

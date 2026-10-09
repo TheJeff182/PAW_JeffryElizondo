@@ -12,12 +12,6 @@ public class UserActionDTO
     public string? Name { get; set; }
     [JsonPropertyName("description")]
     public string? Description { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static UserActionDTO ConvertFrom(UserAction userAction)
     {
@@ -26,10 +20,7 @@ public class UserActionDTO
             Id = Guid.NewGuid(),
             UserActionId = userAction.Id,
             Name = userAction.Name,
-            Description = userAction.Description,
-            Comments = string.Empty,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            Description = userAction.Description
         };
     }
 

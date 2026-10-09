@@ -20,40 +20,75 @@ namespace PAW.API.Controllers
         public async Task<ActionResult<ProductDTO>> GetById(int id)
         {
             var product = await productRepository.FindAsync(id);
+            if (product == null)
+                return NotFound();
             return ProductDTO.ConvertFrom(product);
         }
 
-        /*[HttpPost("filter", Name = "FilterProducts")]
-        public async Task<IEnumerable<Product>> Filter(ConditionViewModel condition)
-        {
-            var predicate = ConditionResolver<Product>.ResolveCondition(condition.Criteria, condition.Property, condition.Value, condition.Start, condition.End);
-            var results = await businessProduct.Filter(predicate);
-            return results;
-        }*/
-
         [HttpPost]
-        public async Task<bool> Save([FromBody] IEnumerable<Product> Products)
+        public async Task<bool> Save([FromBody] ProductDTO productDTO)
         {
-            foreach (var p in Products)
+            try
             {
-                if (p.ProductId > 0)
-                    await productRepository.CreateAsync(p);
-                else await productRepository.UpdateAsync(p);
-            }
+                logger.LogInformation($"Save POST: Processing ProductId={productDTO.ProductId}, Name={productDTO.Name}");
 
-            /*Products.ToList().ForEach(async x =>
+                bool isUpdate = productDTO.ProductId > 0;
+
+                if (isUpdate)
+                {
+                    // Para updates, recuperar el producto existente primero
+                    var existingProduct = await productRepository.FindAsync(productDTO.ProductId);
+                    if (existingProduct == null)
+                    {
+                        logger.LogWarning($"Save: Product with ID {productDTO.ProductId} not found for update");
+                        return false;
+                    }
+
+                    // Actualizar solo los campos que cambian
+                    existingProduct.ProductName = productDTO.Name;
+                    existingProduct.Description = productDTO.Description;
+                    existingProduct.Rating = productDTO.Rating;
+                    existingProduct.ModifiedBy = productDTO.ModifiedBy;
+                    existingProduct.LastModified = productDTO.ModifiedDate;
+
+                    logger.LogInformation($"Save: Updating existing product - ID={existingProduct.ProductId}, Name={existingProduct.ProductName}");
+                    await productRepository.UpdateAsync(existingProduct);
+                }
+                else
+                {
+                    // Para creación
+                    var product = new Product
+                    {
+                        ProductId = 0,
+                        ProductName = productDTO.Name,
+                        Description = productDTO.Description,
+                        Rating = productDTO.Rating,
+                        ModifiedBy = productDTO.ModifiedBy,
+                        CreatedBy = productDTO.CreatedBy,
+                        LastModified = null
+                    };
+
+                    logger.LogInformation($"Save: Creating new product - Name={product.ProductName}");
+                    await productRepository.CreateAsync(product);
+                }
+
+                logger.LogInformation("Save: Product processed successfully");
+                return true;
+            }
+            catch (Exception ex)
             {
-                if (x.Id > 0)
-                    await productRepository.CreateAsync(x);
-                else await productRepository.UpdateAsync(x);
-            });*/
-            return true;
+                logger.LogError($"Save: Error occurred - {ex.Message}, Inner: {ex.InnerException?.Message}");
+                throw;
+            }
         }
 
-        [HttpDelete]
-        public async Task<bool> Delete(Product Product)
+        [HttpDelete("{id:int}")]
+        public async Task<bool> Delete(int id)
         {
-            return await productRepository.DeleteAsync(Product);
+            var product = await productRepository.FindAsync(id);
+            if (product == null)
+                return false;
+            return await productRepository.DeleteAsync(product);
         }
     }
 }

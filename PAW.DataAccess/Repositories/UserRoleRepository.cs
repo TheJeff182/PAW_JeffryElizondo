@@ -10,6 +10,7 @@ public interface IUserRoleRepository : IRepositoryBase<UserRole>
     System.Threading.Tasks.Task<bool> DeleteAsync(UserRole entity);
     System.Threading.Tasks.Task<IEnumerable<UserRole>> ReadAsync();
     System.Threading.Tasks.Task<UserRole> FindAsync(int id);
+    System.Threading.Tasks.Task<UserRole?> FindByDecimalIdAsync(decimal id);
     System.Threading.Tasks.Task<bool> UpdateAsync(UserRole entity);
     System.Threading.Tasks.Task<bool> UpdateManyAsync(IEnumerable<UserRole> entities);
     System.Threading.Tasks.Task<bool> ExistsAsync(UserRole entity);
@@ -17,4 +18,8 @@ public interface IUserRoleRepository : IRepositoryBase<UserRole>
 
 public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
 {
+    public async System.Threading.Tasks.Task<UserRole?> FindByDecimalIdAsync(decimal id)
+    {
+        return await DbContext.Set<UserRole>().FindAsync(id);
+    }
 }

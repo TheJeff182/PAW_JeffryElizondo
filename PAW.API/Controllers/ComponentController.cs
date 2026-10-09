@@ -16,25 +16,83 @@ namespace PAW.API.Controllers
             return components.Select(ComponentDTO.ConvertFrom);
         }
 
-        [HttpGet("{id:int}", Name = "GetComponentById")]
-        public async Task<ActionResult<ComponentDTO>> GetById(int id)
+        [HttpGet("{id:decimal}", Name = "GetComponentById")]
+        public async Task<ActionResult<ComponentDTO>> GetById(decimal id)
         {
-            var component = await componentRepository.FindAsync(id);
+            var component = await componentRepository.FindByDecimalIdAsync(id);
+            if (component == null)
+                return NotFound();
             return ComponentDTO.ConvertFrom(component);
         }
 
         [HttpPost]
-        public async Task<bool> Save([FromBody] IEnumerable<Component> Components)
+        public async Task<bool> Save([FromBody] ComponentDTO componentDTO)
         {
-            foreach (var c in Components)
+            try
             {
-                if (c.Id > 0)
-                    await componentRepository.CreateAsync(c);
-                else 
-                    await componentRepository.UpdateAsync(c);
-            }
+                logger.LogInformation($"Save POST: Processing ComponentId={componentDTO.ComponentId}, Name={componentDTO.Name}");
 
-            return true;
+                bool isUpdate = componentDTO.ComponentId > 0;
+
+                if (isUpdate)
+                {
+                    var existingComponent = await componentRepository.FindByDecimalIdAsync(componentDTO.ComponentId);
+                    if (existingComponent == null)
+                    {
+                        logger.LogWarning($"Save: Component with ID {componentDTO.ComponentId} not found for update");
+                        return false;
+                    }
+
+                    existingComponent.Name = componentDTO.Name;
+                    existingComponent.Content = componentDTO.Content;
+
+                    logger.LogInformation($"Save: Updating existing component - ID={existingComponent.Id}, Name={existingComponent.Name}");
+                    await componentRepository.UpdateAsync(existingComponent);
+                }
+                else
+                {
+                    var component = new Component
+                    {
+                        Name = componentDTO.Name,
+                        Content = componentDTO.Content
+                    };
+
+                    logger.LogInformation($"Save: Creating new component - Name={component.Name}");
+                    await componentRepository.CreateAsync(component);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Save error: {ex.Message}");
+                return false;
+            }
+        }
+
+        [HttpDelete("{id:decimal}")]
+        public async Task<bool> Delete(decimal id)
+        {
+            try
+            {
+                logger.LogInformation($"Delete POST: ComponentId={id}");
+
+                var component = await componentRepository.FindByDecimalIdAsync(id);
+                if (component == null)
+                {
+                    logger.LogWarning($"Delete: Component with ID {id} not found");
+                    return false;
+                }
+
+                await componentRepository.DeleteAsync(component);
+                logger.LogInformation($"Delete: Component {id} deleted successfully");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Delete error: {ex.Message}");
+                return false;
+            }
         }
     }
 }

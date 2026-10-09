@@ -10,6 +10,7 @@ public interface IUserActionRepository : IRepositoryBase<UserAction>
     System.Threading.Tasks.Task<bool> DeleteAsync(UserAction entity);
     System.Threading.Tasks.Task<IEnumerable<UserAction>> ReadAsync();
     System.Threading.Tasks.Task<UserAction> FindAsync(int id);
+    System.Threading.Tasks.Task<UserAction?> FindByDecimalIdAsync(decimal id);
     System.Threading.Tasks.Task<bool> UpdateAsync(UserAction entity);
     System.Threading.Tasks.Task<bool> UpdateManyAsync(IEnumerable<UserAction> entities);
     System.Threading.Tasks.Task<bool> ExistsAsync(UserAction entity);
@@ -17,4 +18,8 @@ public interface IUserActionRepository : IRepositoryBase<UserAction>
 
 public class UserActionRepository : RepositoryBase<UserAction>, IUserActionRepository
 {
+    public async System.Threading.Tasks.Task<UserAction?> FindByDecimalIdAsync(decimal id)
+    {
+        return await DbContext.Set<UserAction>().FindAsync(id);
+    }
 }

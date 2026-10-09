@@ -20,21 +20,56 @@ namespace PAW.API.Controllers
         public async Task<ActionResult<SupplierDTO>> GetById(int id)
         {
             var supplier = await supplierRepository.FindAsync(id);
-            return SupplierDTO.ConvertFrom(supplier);
+            if (supplier == null)
+                return NotFound($"Supplier with id {id} not found");
+
+            return Ok(SupplierDTO.ConvertFrom(supplier));
         }
 
         [HttpPost]
-        public async Task<bool> Save([FromBody] IEnumerable<Supplier> Suppliers)
+        public async Task<bool> Save([FromBody] SupplierDTO supplierDTO)
         {
-            foreach (var s in Suppliers)
+            try
             {
-                if (s.SupplierId > 0)
-                    await supplierRepository.CreateAsync(s);
-                else 
-                    await supplierRepository.UpdateAsync(s);
-            }
+                var supplier = SupplierDTO.ConvertTo(supplierDTO);
 
-            return true;
+                if (supplierDTO.SupplierId > 0)
+                {
+                    // Update
+                    await supplierRepository.UpdateAsync(supplier);
+                }
+                else
+                {
+                    // Create
+                    await supplierRepository.CreateAsync(supplier);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error saving supplier");
+                return false;
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var supplier = await supplierRepository.FindAsync(id);
+                if (supplier == null)
+                    return false;
+
+                await supplierRepository.DeleteAsync(supplier);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting supplier with id {id}", id);
+                return false;
+            }
         }
     }
 }

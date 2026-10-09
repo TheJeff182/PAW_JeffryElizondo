@@ -24,12 +24,6 @@ public class UserDTO
     public string? ModifiedBy { get; set; }
     [JsonPropertyName("roleId")]
     public int? RoleId { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static UserDTO ConvertFrom(User user)
     {
@@ -44,10 +38,7 @@ public class UserDTO
             IsActive = user.IsActive,
             LastModified = user.LastModified,
             ModifiedBy = user.ModifiedBy,
-            RoleId = user.RoleId,
-            Comments = string.Empty,
-            CreatedDate = user.CreatedAt ?? DateTime.Now,
-            ModifiedDate = user.LastModified ?? DateTime.Now
+            RoleId = user.RoleId
         };
     }
 

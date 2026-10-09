@@ -1,0 +1,50 @@
+@model PAW.Models.DTO.InventoryDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Inventory Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Inventory ID:</strong>
+            <p>@Model.InventoryId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Unit Price:</strong>
+            <p>@Model.UnitPrice?.ToString("C")</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Units In Stock:</strong>
+            <p>@Model.UnitsInStock</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Product ID:</strong>
+            <p>@Model.ProductId</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Date Added:</strong>
+            <p>@Model.DateAdded?.ToString("yyyy-MM-dd HH:mm")</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Last Updated:</strong>
+            <p>@Model.LastUpdated?.ToString("yyyy-MM-dd HH:mm")</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <strong>Modified By:</strong>
+            <p>@Model.ModifiedBy</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

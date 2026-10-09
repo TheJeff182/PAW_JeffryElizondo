@@ -22,12 +22,6 @@ public class PawTaskDTO
     public DateTime? LastModified { get; set; }
     [JsonPropertyName("modifiedBy")]
     public string? ModifiedBy { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static PawTaskDTO ConvertFrom(Task task)
     {
@@ -41,10 +35,7 @@ public class PawTaskDTO
             DueDate = task.DueDate,
             CreatedAt = task.CreatedAt,
             LastModified = task.LastModified,
-            ModifiedBy = task.ModifiedBy,
-            Comments = string.Empty,
-            CreatedDate = task.CreatedAt ?? DateTime.Now,
-            ModifiedDate = task.LastModified ?? DateTime.Now
+            ModifiedBy = task.ModifiedBy
         };
     }
 

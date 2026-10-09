@@ -1,0 +1,27 @@
+@model PAW.Models.DTO.UserActionDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">User Action Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>User Action ID:</strong>
+            <p>@Model.UserActionId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Name:</strong>
+            <p>@Model.Name</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <strong>Description:</strong>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

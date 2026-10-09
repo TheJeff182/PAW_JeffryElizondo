@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using PAW.Models.DTO;
 using PAW.Web.Models;
 using PAW.Web.Services;
 
@@ -20,6 +21,15 @@ namespace PAW.Web.Controllers
         {
             var result = await _userActionService.GetUserActionsAsync();
             return View(result);
+        }
+
+        public async System.Threading.Tasks.Task<IActionResult> Details(decimal id)
+        {
+            var userAction = await _userActionService.GetUserActionByIdAsync(id);
+            if (userAction == null)
+                return NotFound();
+
+            return PartialView("_DetailsPartial", userAction);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

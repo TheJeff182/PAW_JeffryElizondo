@@ -1,0 +1,61 @@
+@model PAW.Models.DTO.SupplierDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Supplier Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Supplier ID:</strong>
+            <p>@Model.SupplierId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Supplier Name:</strong>
+            <p>@Model.SupplierName</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Contact Name:</strong>
+            <p>@Model.ContactName</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Contact Title:</strong>
+            <p>@Model.ContactTitle</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Phone:</strong>
+            <p>@Model.Phone</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Address:</strong>
+            <p>@Model.Address</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>City:</strong>
+            <p>@Model.City</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Country:</strong>
+            <p>@Model.Country</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Last Modified:</strong>
+            <p>@Model.LastModified?.ToString("g")</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Modified By:</strong>
+            <p>@Model.ModifiedBy</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

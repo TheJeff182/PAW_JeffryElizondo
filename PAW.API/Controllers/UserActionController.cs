@@ -16,25 +16,14 @@ namespace PAW.API.Controllers
             return userActions.Select(UserActionDTO.ConvertFrom);
         }
 
-        [HttpGet("{id:int}", Name = "GetUserActionById")]
-        public async System.Threading.Tasks.Task<ActionResult<UserActionDTO>> GetById(int id)
+        [HttpGet("{id:decimal}", Name = "GetUserActionById")]
+        public async System.Threading.Tasks.Task<ActionResult<UserActionDTO>> GetById(decimal id)
         {
-            var userAction = await userActionRepository.FindAsync(id);
-            return UserActionDTO.ConvertFrom(userAction);
-        }
+            var userAction = await userActionRepository.FindByDecimalIdAsync(id);
+            if (userAction == null)
+                return NotFound($"UserAction with id {id} not found");
 
-        [HttpPost]
-        public async System.Threading.Tasks.Task<bool> Save([FromBody] IEnumerable<UserAction> UserActions)
-        {
-            foreach (var ua in UserActions)
-            {
-                if (ua.Id > 0)
-                    await userActionRepository.CreateAsync(ua);
-                else 
-                    await userActionRepository.UpdateAsync(ua);
-            }
-
-            return true;
+            return Ok(UserActionDTO.ConvertFrom(userAction));
         }
     }
 }

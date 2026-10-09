@@ -16,25 +16,14 @@ namespace PAW.API.Controllers
             return userRoles.Select(UserRoleDTO.ConvertFrom);
         }
 
-        [HttpGet("{id:int}", Name = "GetUserRoleById")]
-        public async System.Threading.Tasks.Task<ActionResult<UserRoleDTO>> GetById(int id)
+        [HttpGet("{id:decimal}", Name = "GetUserRoleById")]
+        public async System.Threading.Tasks.Task<ActionResult<UserRoleDTO>> GetById(decimal id)
         {
-            var userRole = await userRoleRepository.FindAsync(id);
-            return UserRoleDTO.ConvertFrom(userRole);
-        }
+            var userRole = await userRoleRepository.FindByDecimalIdAsync(id);
+            if (userRole == null)
+                return NotFound($"UserRole with id {id} not found");
 
-        [HttpPost]
-        public async System.Threading.Tasks.Task<bool> Save([FromBody] IEnumerable<UserRole> UserRoles)
-        {
-            foreach (var ur in UserRoles)
-            {
-                if (ur.Id > 0)
-                    await userRoleRepository.CreateAsync(ur);
-                else 
-                    await userRoleRepository.UpdateAsync(ur);
-            }
-
-            return true;
+            return Ok(UserRoleDTO.ConvertFrom(userRole));
         }
     }
 }

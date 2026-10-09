@@ -184,7 +184,9 @@ public partial class ProductDbContext : DbContext
         {
             entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED8EEF2B34");
 
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.ProductId)
+                .HasColumnName("ProductID")
+                .ValueGeneratedOnAdd();
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.CreatedBy).HasMaxLength(100);
             entity.Property(e => e.Description).HasMaxLength(1000);

@@ -10,12 +10,6 @@ public class RoleDTO
     public int RoleId { get; set; }
     [JsonPropertyName("roleName")]
     public string? RoleName { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static RoleDTO ConvertFrom(Role role)
     {
@@ -23,10 +17,7 @@ public class RoleDTO
         {
             Id = Guid.NewGuid(),
             RoleId = role.RoleId,
-            RoleName = role.RoleName,
-            Comments = string.Empty,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            RoleName = role.RoleName
         };
     }
 

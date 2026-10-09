@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PAW.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0fc6d8a5cf351e5f697f673990ef37fd2aa22f11")]
 [assembly: System.Reflection.AssemblyProductAttribute("PAW.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PAW.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

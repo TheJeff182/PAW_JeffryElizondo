@@ -3,7 +3,6 @@ using PAW.DataAccess.Repositories;
 using PAW.Models;
 using PAW.Models.DTO;
 using Task = PAW.Models.Task;
-using SystemTask = System.Threading.Tasks.Task;
 
 namespace PAW.API.Controllers
 {
@@ -22,21 +21,56 @@ namespace PAW.API.Controllers
         public async System.Threading.Tasks.Task<ActionResult<PawTaskDTO>> GetById(int id)
         {
             var task = await taskRepository.FindAsync(id);
-            return PawTaskDTO.ConvertFrom(task);
+            if (task == null)
+                return NotFound($"Task with id {id} not found");
+
+            return Ok(PawTaskDTO.ConvertFrom(task));
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<bool> Save([FromBody] IEnumerable<Task> Tasks)
+        public async System.Threading.Tasks.Task<bool> Save([FromBody] PawTaskDTO pawTaskDTO)
         {
-            foreach (var t in Tasks)
+            try
             {
-                if (t.Id > 0)
-                    await taskRepository.CreateAsync(t);
-                else 
-                    await taskRepository.UpdateAsync(t);
-            }
+                var task = PawTaskDTO.ConvertTo(pawTaskDTO);
 
-            return true;
+                if (pawTaskDTO.TaskId > 0)
+                {
+                    // Update
+                    await taskRepository.UpdateAsync(task);
+                }
+                else
+                {
+                    // Create
+                    await taskRepository.CreateAsync(task);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error saving task");
+                return false;
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async System.Threading.Tasks.Task<bool> Delete(int id)
+        {
+            try
+            {
+                var task = await taskRepository.FindAsync(id);
+                if (task == null)
+                    return false;
+
+                await taskRepository.DeleteAsync(task);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting task with id {id}", id);
+                return false;
+            }
         }
     }
 }

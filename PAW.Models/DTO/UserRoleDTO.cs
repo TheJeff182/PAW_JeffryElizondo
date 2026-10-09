@@ -12,12 +12,6 @@ public class UserRoleDTO
     public decimal? RoleId { get; set; }
     [JsonPropertyName("userId")]
     public decimal? UserId { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static UserRoleDTO ConvertFrom(UserRole userRole)
     {
@@ -26,10 +20,7 @@ public class UserRoleDTO
             Id = Guid.NewGuid(),
             UserRoleId = userRole.Id,
             RoleId = userRole.RoldId,
-            UserId = userRole.UserId,
-            Comments = string.Empty,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            UserId = userRole.UserId
         };
     }
 

@@ -56,8 +56,12 @@ public class RestProvider : IRestProvider
 	{
 		try
 		{
+			var uri = new Uri(endpoint);
+			var relativePath = uri.PathAndQuery;
+			if (relativePath.StartsWith("/")) relativePath = relativePath.Substring(1);
+
 			var response = await RestProviderHelpers.CreateHttpClient(endpoint)
-				.GetAsync(id);
+				.GetAsync(relativePath);
 			return await RestProviderHelpers.GetResponse(response);
 		}
 		catch (Exception ex)
@@ -76,8 +80,12 @@ public class RestProvider : IRestProvider
 	{
 		try
 		{
+			var uri = new Uri(endpoint);
+			var relativePath = uri.PathAndQuery;
+			if (relativePath.StartsWith("/")) relativePath = relativePath.Substring(1);
+
 			var response = await RestProviderHelpers.CreateHttpClient(endpoint)
-				.PostAsync(endpoint, RestProviderHelpers.CreateContent(content));
+				.PostAsync(relativePath, RestProviderHelpers.CreateContent(content));
 			var result = await RestProviderHelpers.GetResponse(response);
 			return result;
 		}
@@ -98,8 +106,12 @@ public class RestProvider : IRestProvider
 	{
 		try
 		{
+			var uri = new Uri(endpoint);
+			var relativePath = uri.PathAndQuery;
+			if (relativePath.StartsWith("/")) relativePath = relativePath.Substring(1);
+
 			var response = await RestProviderHelpers.CreateHttpClient(endpoint)
-				.PutAsync(id, RestProviderHelpers.CreateContent(content));
+				.PutAsync(relativePath, RestProviderHelpers.CreateContent(content));
 			var result = await RestProviderHelpers.GetResponse(response);
 			return result;
 		}
@@ -119,8 +131,12 @@ public class RestProvider : IRestProvider
 	{
 		try
 		{
+			var uri = new Uri(endpoint);
+			var relativePath = uri.PathAndQuery;
+			if (relativePath.StartsWith("/")) relativePath = relativePath.Substring(1);
+
 			var response = await RestProviderHelpers.CreateHttpClient(endpoint)
-				.DeleteAsync(id);
+				.DeleteAsync(relativePath);
 			var result = await RestProviderHelpers.GetResponse(response);
 			return result;
 		}

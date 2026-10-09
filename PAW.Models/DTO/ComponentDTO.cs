@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace PAW.Models.DTO;
 
@@ -6,18 +7,17 @@ public class ComponentDTO
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
+
     [JsonPropertyName("componentId")]
     public decimal ComponentId { get; set; }
+
     [JsonPropertyName("name")]
+    [Required(ErrorMessage = "The Name field is required.")]
     public string Name { get; set; }
+
     [JsonPropertyName("content")]
+    [Required(ErrorMessage = "The Content field is required.")]
     public string Content { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static ComponentDTO ConvertFrom(Component component)
     {
@@ -26,10 +26,7 @@ public class ComponentDTO
             Id = Guid.NewGuid(),
             ComponentId = component.Id,
             Name = component.Name,
-            Content = component.Content,
-            Comments = string.Empty,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            Content = component.Content
         };
     }
 

@@ -7,6 +7,7 @@ namespace PAW.Web.Services;
 public interface IUserActionService
 {
     System.Threading.Tasks.Task<IEnumerable<UserActionDTO>> GetUserActionsAsync();
+    System.Threading.Tasks.Task<UserActionDTO?> GetUserActionByIdAsync(decimal id);
 }
 
 public class UserActionService : ServiceBase, IUserActionService
@@ -24,5 +25,12 @@ public class UserActionService : ServiceBase, IUserActionService
         var response = await _restProvider.GetAsync(SetPathUrl(_path), id: null);
         var userActions = await JsonProvider.DeserializeAsync<IEnumerable<UserActionDTO>>(response);
         return userActions;
+    }
+
+    public async System.Threading.Tasks.Task<UserActionDTO?> GetUserActionByIdAsync(decimal id)
+    {
+        var response = await _restProvider.GetAsync($"{SetPathUrl(_path)}/{id}", id.ToString());
+        var userAction = await JsonProvider.DeserializeAsync<UserActionDTO>(response);
+        return userAction;
     }
 }

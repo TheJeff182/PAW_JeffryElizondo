@@ -1,0 +1,50 @@
+@model PAW.Models.DTO.NotificationDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Notification Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Notification ID:</strong>
+            <p>@Model.NotificationId</p>
+        </div>
+        <div class="col-md-6">
+            <strong>User ID:</strong>
+            <p>@Model.UserId</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <strong>Message:</strong>
+            <p>@Model.Message</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <strong>Is Read:</strong>
+            <p>
+                @if (Model.IsRead.HasValue)
+                {
+                    <span class="badge @(Model.IsRead.Value ? "bg-success" : "bg-warning")">
+                        @(Model.IsRead.Value ? "Read" : "Unread")
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">N/A</span>
+                }
+            </p>
+        </div>
+        <div class="col-md-6">
+            <strong>Created At:</strong>
+            <p>@Model.CreatedAt?.ToString("yyyy-MM-dd HH:mm")</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

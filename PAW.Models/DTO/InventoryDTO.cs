@@ -20,12 +20,6 @@ public class InventoryDTO
     public DateTime? DateAdded { get; set; }
     [JsonPropertyName("modifiedBy")]
     public string? ModifiedBy { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static InventoryDTO ConvertFrom(Inventory inventory)
     {
@@ -38,10 +32,7 @@ public class InventoryDTO
             LastUpdated = inventory.LastUpdated,
             ProductId = inventory.ProductId,
             DateAdded = inventory.DateAdded,
-            ModifiedBy = inventory.ModifiedBy,
-            Comments = string.Empty,
-            CreatedDate = inventory.DateAdded ?? DateTime.Now,
-            ModifiedDate = inventory.LastUpdated ?? DateTime.Now
+            ModifiedBy = inventory.ModifiedBy
         };
     }
 

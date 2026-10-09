@@ -7,6 +7,7 @@ namespace PAW.Web.Services;
 public interface IUserRoleService
 {
     System.Threading.Tasks.Task<IEnumerable<UserRoleDTO>> GetUserRolesAsync();
+    System.Threading.Tasks.Task<UserRoleDTO?> GetUserRoleByIdAsync(decimal id);
 }
 
 public class UserRoleService : ServiceBase, IUserRoleService
@@ -24,5 +25,12 @@ public class UserRoleService : ServiceBase, IUserRoleService
         var response = await _restProvider.GetAsync(SetPathUrl(_path), id: null);
         var userRoles = await JsonProvider.DeserializeAsync<IEnumerable<UserRoleDTO>>(response);
         return userRoles;
+    }
+
+    public async System.Threading.Tasks.Task<UserRoleDTO?> GetUserRoleByIdAsync(decimal id)
+    {
+        var response = await _restProvider.GetAsync(SetPathUrl(_path), id: id.ToString());
+        var userRole = await JsonProvider.DeserializeAsync<UserRoleDTO>(response);
+        return userRole;
     }
 }

@@ -1,0 +1,36 @@
+@model PAW.Models.DTO.CategoryDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Category Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Category ID:</strong> @Model.CategoryId</p>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <p><strong>Name:</strong> @Model.Name</p>
+    </div>
+
+    <div class="mb-3">
+        <p><strong>Description:</strong> @(string.IsNullOrEmpty(Model.Description) ? "N/A" : Model.Description)</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Modified By:</strong> @(string.IsNullOrEmpty(Model.ModifiedBy) ? "N/A" : Model.ModifiedBy)</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Modified Date:</strong> @(Model.ModifiedDate?.ToString("yyyy-MM-dd HH:mm") ?? "N/A")</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

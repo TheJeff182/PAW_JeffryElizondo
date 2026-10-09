@@ -26,12 +26,6 @@ public class SupplierDTO
     public DateTime? LastModified { get; set; }
     [JsonPropertyName("modifiedBy")]
     public string? ModifiedBy { get; set; }
-    [JsonPropertyName("comments")]
-    public string Comments { get; set; }
-    [JsonPropertyName("createdDate")]
-    public DateTime CreatedDate { get; set; }
-    [JsonPropertyName("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
 
     public static SupplierDTO ConvertFrom(Supplier supplier)
     {
@@ -47,10 +41,7 @@ public class SupplierDTO
             City = supplier.City,
             Country = supplier.Country,
             LastModified = supplier.LastModified,
-            ModifiedBy = supplier.ModifiedBy,
-            Comments = string.Empty,
-            CreatedDate = supplier.LastModified ?? DateTime.Now,
-            ModifiedDate = supplier.LastModified ?? DateTime.Now
+            ModifiedBy = supplier.ModifiedBy
         };
     }
 

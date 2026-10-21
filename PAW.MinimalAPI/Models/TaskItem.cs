@@ -1,8 +1,6 @@
 namespace PAW.MinimalAPI.Models;
 
-/// <summary>
-/// Task entity representing a task in the application
-/// </summary>
+//
 public class TaskItem
 {
     public int Id { get; set; }

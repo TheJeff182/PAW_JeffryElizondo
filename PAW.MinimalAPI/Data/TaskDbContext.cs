@@ -4,7 +4,8 @@ using PAW.MinimalAPI.Models;
 namespace PAW.MinimalAPI.Data;
 
 /// <summary>
-/// DbContext for in-memory database using Entity Framework Core
+/// Contexto de la base de datos en memoria para gestionar tareas
+/// Usa Entity Framework Core con almacenamiento en memoria
 /// </summary>
 public class TaskDbContext : DbContext
 {
@@ -18,7 +19,7 @@ public class TaskDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure TaskItem entity
+        // Configurar la entidad TaskItem
         modelBuilder.Entity<TaskItem>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -28,7 +29,7 @@ public class TaskDbContext : DbContext
             entity.Property(e => e.Status).HasMaxLength(50);
         });
 
-        // Seed initial data
+        // Agregar datos de prueba iniciales
         modelBuilder.Entity<TaskItem>().HasData(
             new TaskItem
             {

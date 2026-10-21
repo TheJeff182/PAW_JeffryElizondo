@@ -5,18 +5,18 @@ using PAW.MinimalAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Registrar servicios necesarios para la API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register in-memory database
+// Configurar la base de datos en memoria con Entity Framework Core
 builder.Services.AddDbContext<TaskDbContext>(options =>
     options.UseInMemoryDatabase("TasksDatabase"));
 
-// Register Task Repository with Dependency Injection
+// Registrar el repositorio de tareas con inyección de dependencias
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
-// Add CORS support for MVC consumption
+// Configurar CORS para permitir solicitudes desde PAW.Web
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMVC", policy =>
@@ -29,14 +29,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Initialize database with seed data
+// Inicializar la base de datos en memoria con los datos de prueba
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<TaskDbContext>();
     dbContext.Database.EnsureCreated();
 }
 
-// Configure the HTTP request pipeline
+// Configurar la aplicación según el entorno
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -46,7 +46,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowMVC");
 
-// Map Task endpoints
+// Registrar los endpoints donde la API expone las funciones de tarea
 app.MapTaskEndpoints();
 
 app.Run();

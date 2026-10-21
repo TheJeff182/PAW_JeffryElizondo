@@ -5,7 +5,7 @@ using PAW.MinimalAPI.Models;
 namespace PAW.MinimalAPI.Services;
 
 /// <summary>
-/// Repository interface for Task operations
+/// Interfaz que define las operaciones que se pueden hacer con las tareas
 /// </summary>
 public interface ITaskRepository
 {
@@ -18,7 +18,8 @@ public interface ITaskRepository
 }
 
 /// <summary>
-/// Entity Framework Core implementation of ITaskRepository using InMemory database
+/// Implementación del repositorio de tareas usando Entity Framework Core
+/// Almacena y recupera tareas de la base de datos en memoria
 /// </summary>
 public class TaskRepository : ITaskRepository
 {
@@ -29,16 +30,25 @@ public class TaskRepository : ITaskRepository
         _context = context;
     }
 
+    /// <summary>
+    /// Obtiene todas las tareas ordenadas por fecha de creación (más recientes primero)
+    /// </summary>
     public async Task<IEnumerable<TaskItem>> GetAllAsync()
     {
         return await _context.Tasks.OrderByDescending(t => t.CreatedAt).ToListAsync();
     }
 
+    /// <summary>
+    /// Busca una tarea específica por su ID
+    /// </summary>
     public async Task<TaskItem?> GetByIdAsync(int id)
     {
         return await _context.Tasks.FindAsync(id);
     }
 
+    /// <summary>
+    /// Crea una nueva tarea en la base de datos
+    /// </summary>
     public async Task<TaskItem> CreateAsync(TaskItem task)
     {
         task.CreatedAt = DateTime.Now;
@@ -50,6 +60,9 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
+    /// <summary>
+    /// Actualiza una tarea existente
+    /// </summary>
     public async Task<TaskItem?> UpdateAsync(int id, TaskItem updatedTask)
     {
         var existingTask = await _context.Tasks.FindAsync(id);
@@ -69,6 +82,9 @@ public class TaskRepository : ITaskRepository
         return existingTask;
     }
 
+    /// <summary>
+    /// Elimina una tarea de la base de datos
+    /// </summary>
     public async Task<bool> DeleteAsync(int id)
     {
         var task = await _context.Tasks.FindAsync(id);
@@ -81,9 +97,13 @@ public class TaskRepository : ITaskRepository
         return true;
     }
 
+    /// <summary>
+    /// Cuenta el total de tareas en la base de datos
+    /// </summary>
     public async Task<int> CountAsync()
     {
         return await _context.Tasks.CountAsync();
     }
 }
+
 

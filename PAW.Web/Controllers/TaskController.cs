@@ -8,24 +8,25 @@ namespace PAW.Web.Controllers
 {
     public class TaskController : Controller
     {
-        private readonly ITaskService _taskService;
+        private readonly IMinimalApiTaskService _minimalApiTaskService;
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ITaskService taskService, ILogger<TaskController> logger)
+        public TaskController(IMinimalApiTaskService minimalApiTaskService, ILogger<TaskController> logger)
         {
-            _taskService = taskService;
+            _minimalApiTaskService = minimalApiTaskService;
             _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await _taskService.GetTasksAsync();
+            _logger.LogInformation("Fetching tasks from Minimal API");
+            var result = await _minimalApiTaskService.GetTasksAsync();
             return View(result);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var task = await _taskService.GetTaskByIdAsync(id);
+            var task = await _minimalApiTaskService.GetTaskByIdAsync(id);
             if (task == null)
                 return NotFound();
 
@@ -44,12 +45,20 @@ namespace PAW.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                pawTaskDTO.TaskId = 0;
-                var result = await _taskService.CreateTaskAsync(pawTaskDTO);
-                if (result)
-                    return RedirectToAction(nameof(Index));
+                try
+                {
+                    _logger.LogInformation("Creating new task: {TaskName}", pawTaskDTO.Name);
+                    var result = await _minimalApiTaskService.CreateTaskAsync(pawTaskDTO);
+                    if (result != null)
+                        return RedirectToAction(nameof(Index));
 
-                ModelState.AddModelError("", "Error creating task");
+                    ModelState.AddModelError("", "Error creating task");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating task");
+                    ModelState.AddModelError("", "Error creating task: " + ex.Message);
+                }
             }
 
             return View(pawTaskDTO);
@@ -58,7 +67,7 @@ namespace PAW.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var task = await _taskService.GetTaskByIdAsync(id);
+            var task = await _minimalApiTaskService.GetTaskByIdAsync(id);
             if (task == null)
                 return NotFound();
 
@@ -69,11 +78,20 @@ namespace PAW.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var result = await _taskService.DeleteTaskAsync(id);
-            if (result)
-                return RedirectToAction(nameof(Index));
+            try
+            {
+                _logger.LogInformation("Deleting task with ID: {TaskId}", id);
+                var result = await _minimalApiTaskService.DeleteTaskAsync(id);
+                if (result)
+                    return RedirectToAction(nameof(Index));
 
-            return BadRequest("Error deleting task");
+                return BadRequest("Error deleting task");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting task with ID: {TaskId}", id);
+                return BadRequest("Error deleting task: " + ex.Message);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
